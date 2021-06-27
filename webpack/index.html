@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<!-- <script src="./index.js"></script> -->
+
+<script>
+  (function (list) {
+    // 模拟require函数
+    function require(file) {
+      var exports = {};
+      (function (exports, code) {
+        eval(code)
+      })(exports, list[file])
+      return exports;
+    }
+    require('index.js')
+  })({
+    'index.js': `
+      var add = require('add.js').default;
+      console.log(add(1, 5))
+    `,
+    'add.js': `
+      exports.default = function (a, b)  {return a + b}
+    `
+
+  })
+
+
+
+</script>
+
+<body>
+
+</body>
+
+</html>
